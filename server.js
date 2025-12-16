@@ -17,5 +17,8 @@ app.use("/api/auth", require("./src/routes/authRoutes"));
 
 
 // Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.get("/", (req, res) => {
+  res.send("HR Backend API running on Vercel");
+});
+
+module.exports = app;
