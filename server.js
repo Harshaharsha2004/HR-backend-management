@@ -7,15 +7,17 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-let isConnected = false;
-
+// connect DB once
 app.use(async (req, res, next) => {
-  if (!isConnected) {
+  try {
     await connectDB();
-    isConnected = true;
-    console.log("MongoDB connected");
+    next();
+  } catch (err) {
+    return res.status(500).json({
+      message: "Database connection failed",
+      error: err.message,
+    });
   }
-  next();
 });
 
 // Routes
